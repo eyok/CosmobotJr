@@ -10,7 +10,8 @@ function respond() {
       botRegez = /^\/sign$/,
       botRegea = /^\/bot$/,
       botRegeb = /^\/GoogleVoiceSignIn$/,
-      botRegec = /^\/business;
+      botRegec = /^\/business$/,
+      botReged = /^\/assign$/;
   
   if(request.text && botRegeb.test(request.text)) {
     this.res.writeHead(200);
@@ -56,6 +57,15 @@ function respond() {
   if(request.text && botRegec.test(request.text)) {
     this.res.writeHead(200);
     postMessage6();
+    this.res.end();
+  } else{
+    console.log("don't care");
+    this.res.writeHead(200);
+    this.res.end();
+  }
+    if(request.text && botReged.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage7();
     this.res.end();
   } else{
     console.log("don't care");
@@ -241,6 +251,40 @@ function postMessage6() {
   var botResponse, options, body, botReq;
 
   botResponse = "www.ordercosmic.com/rocket/business_delivery/order_entry";
+
+  options = {
+    hostname: 'api.groupme.com',
+    path: '/v3/bots/post',
+    method: 'POST'
+  };
+
+  body = {
+    "bot_id" : botID,
+    "text" : botResponse
+  };
+
+  console.log('sending ' + botResponse + ' to ' + botID);
+
+  botReq = HTTPS.request(options, function(res) {
+      if(res.statusCode == 202) {
+        //neat
+      } else {
+        console.log('rejecting bad status code ' + res.statusCode);
+      }
+  });
+
+  botReq.on('error', function(err) {
+    console.log('error posting message '  + JSON.stringify(err));
+  });
+  botReq.on('timeout', function(err) {
+    console.log('timeout posting message '  + JSON.stringify(err));
+  });
+  botReq.end(JSON.stringify(body));
+}
+function postMessage7() {
+  var botResponse, options, body, botReq;
+
+  botResponse = "http://www.ordercosmic.com/rocket/dispatch_app_web?tabletId=142&secret=fo39fruf8ds9rjf";
 
   options = {
     hostname: 'api.groupme.com',

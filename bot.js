@@ -112,7 +112,7 @@ function postMessage() {
 function postMessage2() {
   var botResponse, options, body, botReq;
 
-  botResponse = "http://www.ordercosmic.com/admin?verifyMe=rff8e7f5f5w";
+  botResponse = "www.ordercosmic.com/admin/orders?verifyMe=0ww9s8djw9ds";
 
   options = {
     hostname: 'api.groupme.com',
